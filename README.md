@@ -70,8 +70,6 @@ It follows SAP RAP best practices with CDS Views, Behavior Definitions, Service 
 
 <img src="https://img.shields.io/badge/CDS-Views-green?style=for-the-badge"/>
 
-<img src="https://img.shields.io/badge/SAP-HANA-red?style=for-the-badge"/>
-
 <img src="https://img.shields.io/badge/OData-V4-success?style=for-the-badge"/>
 
 <img src="https://img.shields.io/badge/Fiori-Elements-orange?style=for-the-badge"/>
