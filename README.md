@@ -60,7 +60,27 @@ It follows SAP RAP best practices with CDS Views, Behavior Definitions, Service 
 ---
 
 # 🛠️ Technologies Used
+# 🛠️ Technologies Used
 
+<p>
+
+<img src="https://img.shields.io/badge/SAP-RAP-0FAAFF?style=for-the-badge&logo=sap&logoColor=white"/>
+
+<img src="https://img.shields.io/badge/ABAP-Cloud-blue?style=for-the-badge"/>
+
+<img src="https://img.shields.io/badge/CDS-Views-green?style=for-the-badge"/>
+
+<img src="https://img.shields.io/badge/SAP-HANA-red?style=for-the-badge"/>
+
+<img src="https://img.shields.io/badge/OData-V4-success?style=for-the-badge"/>
+
+<img src="https://img.shields.io/badge/Fiori-Elements-orange?style=for-the-badge"/>
+
+<img src="https://img.shields.io/badge/ADT-Eclipse-purple?style=for-the-badge"/>
+
+</p>
+
+---
 | Technology | Description |
 |------------|-------------|
 | SAP ABAP Cloud | Backend Development |
