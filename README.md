@@ -1,7 +1,3 @@
-# E-Commerce-Order-Management-System
-E-Commerce-Order-Management-System
-
-
 <div align="center">
 
 # 🛒 E-Commerce Order Management System
