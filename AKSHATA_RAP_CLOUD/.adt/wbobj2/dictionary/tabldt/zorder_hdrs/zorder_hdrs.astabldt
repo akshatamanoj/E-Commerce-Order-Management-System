@@ -1,0 +1,19 @@
+@EndUserText.label : 'Sales Order Header'
+@AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
+@AbapCatalog.tableCategory : #TRANSPARENT
+@AbapCatalog.deliveryClass : #A
+@AbapCatalog.dataMaintenance : #RESTRICTED
+define table zorder_hdrs {
+
+  key client      : abap.clnt not null;
+  key order_id    : sysuuid_x16 not null;
+  order_no        : abap.char(10);
+  customer_id     : abap.char(10);
+  order_date      : abap.dats;
+  overall_status  : abap.char(2);
+  shipping_status : abap.char(2);
+  @Semantics.amount.currencyCode : 'zorder_hdrs.currency'
+  total_amount    : abap.curr(15,2);
+  currency        : abap.cuky;
+
+}

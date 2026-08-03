@@ -1,0 +1,125 @@
+@Metadata.layer: #CORE
+@UI.headerInfo: {
+     typeName: 'Order',
+     typeNamePlural: 'Orders',
+     title: {
+         type: #STANDARD,
+         value: 'OrderId'
+     },
+     description: {
+         value: 'CustomerId'
+     }
+ }
+annotate entity ZC_ORDER_HDRD_AK with
+
+{
+
+  @UI.lineItem: [
+    // ... Your existing fields (OrderId, CustomerId, etc.) ...
+ 
+    {
+      type: #FOR_ACTION,
+      dataAction: 'acceptOrder',
+      label: 'Accept Order',
+      importance: #HIGH
+    },
+    {
+      type: #FOR_ACTION,
+      dataAction: 'cancelOrder',
+      label: 'Cancel Order',
+      importance: #HIGH
+    },
+    
+    {
+      type: #FOR_ACTION,
+      dataAction: 'shipOrder',
+      label: 'Ship Order',
+      importance: #HIGH
+    },
+    
+   {
+     type: #FOR_ACTION,
+     dataAction: 'confirmPayment',
+     label: 'Confirm Payment',
+     importance: #HIGH
+     },
+     
+     {
+     type: #FOR_ACTION,
+     dataAction: 'packOrder',
+     label: 'Pack Order',
+     importance: #HIGH
+     },
+     
+    {
+    type: #FOR_ACTION,
+    dataAction: 'deliverOrder',
+    label: 'Deliver Order',
+    importance: #HIGH
+    }
+ 
+    
+  ]
+
+  @UI.facet: [
+      {
+          id: 'General',
+          purpose: #STANDARD,
+          type: #IDENTIFICATION_REFERENCE,
+          label: 'General Information',
+          position: 10
+      },
+      {
+          id: 'Items',
+          purpose: #STANDARD,
+          type: #LINEITEM_REFERENCE,
+          label: 'Order Items',
+          targetElement: '_Items',
+          position: 20
+      }
+  ]
+  
+  @UI.selectionField: [{ position: 10 }]
+  @UI.lineItem: [{ position: 10 }]
+  @UI.identification: [{ position: 10 }]
+  @EndUserText.label: 'Order ID'
+  OrderId;
+ 
+  @UI.selectionField: [{ position: 20 }]
+  @UI.lineItem: [{ position: 20 }]
+  @UI.identification: [{ position: 20 }]
+  @EndUserText.label: 'Customer ID'
+  CustomerId;
+ 
+  @UI.selectionField: [{ position: 30 }]
+  @UI.lineItem: [{ position: 30 }]
+  @UI.identification: [{ position: 30 }]
+  @EndUserText.label: 'Order Date'
+  OrderDate;
+ 
+  @UI.lineItem: [{ position: 40 }]
+  @UI.identification: [{ position: 40 }]
+  @EndUserText.label: 'Total Amount'
+  TotalAmount;
+ 
+  @UI.lineItem: [{ position: 50 }]
+  @UI.identification: [{ position: 50 }]
+  @EndUserText.label: 'Currency'
+  Currency;
+ 
+  @UI.selectionField: [{ position: 40 }]
+  @UI.lineItem: [{ position: 60 }]
+  @UI.identification: [{ position: 60 }]
+  @EndUserText.label: 'Order Status'
+  OrderStatus;
+ 
+  @UI.lineItem: [{ position: 70 }]
+  @UI.identification: [{ position: 70 }]
+  @EndUserText.label: 'Payment Status'
+  PaymentStatus;
+  
+  @UI.lineItem: [{ position: 80 }]
+  @UI.identification: [{ position: 80 }]
+  @EndUserText.label: 'Shipping Status'
+  ShippingStatus;
+}

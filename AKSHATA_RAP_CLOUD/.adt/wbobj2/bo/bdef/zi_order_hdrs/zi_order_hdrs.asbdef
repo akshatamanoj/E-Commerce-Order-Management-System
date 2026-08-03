@@ -1,0 +1,78 @@
+managed implementation in class zbp_i_order_hdrs unique;
+//strict ( 2 );
+with draft;
+
+define behavior for ZI_ORDER_HDRS //alias <alias_name>
+persistent table zak_ec_order_hdr
+draft table zdak_ec_orderhdr
+lock master total etag ChangedAt
+etag master ChangedAt
+authorization master ( instance )
+
+{
+  create ( authorization : global );
+  update;
+  delete;
+  field ( readonly ) OrderId;
+
+  // --- ADDED ACTIONS HERE ---
+  action ( features : instance ) acceptOrder result [1] $self;
+  action ( features : instance ) cancelOrder result [1] $self;
+
+  // --- ADDED NEW ACTIONS HERE ---
+  action ( features : instance ) shipOrder result[1] $self;
+  action ( features : instance ) confirmPayment result[1] $self;
+
+  // Add to your existing action lists
+  action ( features : instance ) packOrder result[1] $self;
+  action ( features : instance ) deliverOrder result[1] $self;
+
+  //determination CalculateTotalAmount on modify { create; update; }
+ validation ValidateCustomer on save { field CustomerId; }
+
+  mapping for zak_ec_order_hdr
+{
+  OrderId        = order_id;
+  CustomerId     = customer_id;
+  OrderDate      = order_date;
+  TotalAmount    = total_amount;
+  Currency       = currency;
+  OrderStatus    = order_status;
+  PaymentStatus  = payment_status;
+  ShippingStatus = shipping_status;
+  CreatedBy      = created_by;
+  CreatedAt      = created_at;
+  ChangedBy      = changed_by;
+  ChangedAt      = changed_at;
+}
+  association _Items { create; with draft;}
+}
+
+define behavior for ZI_ORDER_ITEMS //alias <alias_name>
+persistent table zak_ec_order_itm
+draft table zdak_ec_orderitm
+lock dependent by _Order
+authorization dependent by _Order
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly ) OrderId, ItemNo;
+
+  determination CalculateAmount on modify { create; field Quantity,UnitPrice; }
+  validation ValidateQuantity on save { field Quantity; }
+  validation ValidateProduct on save { field ProductId;}
+
+  mapping for zak_ec_order_itm
+
+{
+  OrderId    = order_id;
+  ItemNo     = item_no;
+  ProductId  = product_id;
+  Quantity   = quantity;
+  UnitPrice  = unit_price;
+  Amount     = amount;
+  Currency   = currency;
+}
+  association _Order {with draft;}
+}

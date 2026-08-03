@@ -1,0 +1,24 @@
+@EndUserText.label : 'Customer Master'
+@AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
+@AbapCatalog.tableCategory : #TRANSPARENT
+@AbapCatalog.deliveryClass : #A
+@AbapCatalog.dataMaintenance : #RESTRICTED
+define table zak_ec_customer {
+
+  key client      : abap.clnt not null;
+  key customer_id : abap.char(10) not null;
+  first_name      : abap.char(40);
+  last_name       : abap.char(40);
+  email           : abap.char(100);
+  phone           : abap.char(20);
+  street          : abap.char(100);
+  city            : abap.char(40);
+  state           : abap.char(40);
+  country         : abap.char(3);
+  postal_code     : abap.char(10);
+  created_by      : syuname;
+  created_at      : timestampl;
+  changed_by      : syuname;
+  changed_at      : timestampl;
+
+}

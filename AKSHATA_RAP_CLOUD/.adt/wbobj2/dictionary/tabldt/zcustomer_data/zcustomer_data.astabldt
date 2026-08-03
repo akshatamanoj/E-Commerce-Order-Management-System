@@ -1,0 +1,16 @@
+@EndUserText.label : 'Customer Master'
+@AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
+@AbapCatalog.tableCategory : #TRANSPARENT
+@AbapCatalog.deliveryClass : #A
+@AbapCatalog.dataMaintenance : #RESTRICTED
+define table zcustomer_data {
+
+  key client      : abap.clnt not null;
+  key customer_id : abap.char(10) not null;
+  customer_name   : abap.char(60);
+  email           : abap.char(80);
+  phone           : abap.char(20);
+  city            : abap.char(40);
+  country         : abap.char(3);
+
+}

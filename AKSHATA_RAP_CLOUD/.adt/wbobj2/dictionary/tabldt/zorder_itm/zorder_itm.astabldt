@@ -1,0 +1,21 @@
+@EndUserText.label : 'Sales Order Item'
+@AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
+@AbapCatalog.tableCategory : #TRANSPARENT
+@AbapCatalog.deliveryClass : #A
+@AbapCatalog.dataMaintenance : #RESTRICTED
+define table zorder_itm {
+
+  key client            : abap.clnt not null;
+  key order_id          : sysuuid_x16 not null;
+  key item_id           : sysuuid_x16 not null;
+  product_id            : abap.char(10);
+  quantity              : abap.int4;
+  @Semantics.amount.currencyCode : 'zorder_itm.currency'
+  unit_price            : abap.curr(13,2);
+  @Semantics.amount.currencyCode : 'zorder_itm.currency'
+  net_amount            : abap.curr(13,2);
+  currency              : abap.cuky;
+  item_status           : abap.char(2);
+  local_last_changed_at : abp_locinst_lastchange_tstmpl;
+
+}

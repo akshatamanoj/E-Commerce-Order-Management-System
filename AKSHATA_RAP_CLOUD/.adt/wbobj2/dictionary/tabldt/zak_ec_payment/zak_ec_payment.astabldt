@@ -1,0 +1,17 @@
+@EndUserText.label : 'Payment'
+@AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
+@AbapCatalog.tableCategory : #TRANSPARENT
+@AbapCatalog.deliveryClass : #A
+@AbapCatalog.dataMaintenance : #RESTRICTED
+define table zak_ec_payment {
+
+  key client     : abap.clnt not null;
+  key payment_id : abap.char(10) not null;
+  order_id       : abap.char(10);
+  payment_method : abap.char(20);
+  payment_status : abap.char(20);
+  @Semantics.amount.currencyCode : 'zak_ec_payment.currency'
+  amount         : abap.curr(15,2);
+  currency       : abap.cuky;
+
+}

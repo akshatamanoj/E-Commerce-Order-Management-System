@@ -1,0 +1,22 @@
+@EndUserText.label : 'Product Master'
+@AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
+@AbapCatalog.tableCategory : #TRANSPARENT
+@AbapCatalog.deliveryClass : #A
+@AbapCatalog.dataMaintenance : #RESTRICTED
+define table zak_ec_product {
+
+  key client     : abap.clnt not null;
+  key product_id : abap.char(10) not null;
+  product_name   : abap.char(100);
+  category       : abap.char(40);
+  description    : abap.char(255);
+  @Semantics.amount.currencyCode : 'zak_ec_product.currency'
+  unit_price     : abap.curr(15,2);
+  currency       : abap.cuky;
+  stock_quantity : abap.int4;
+  created_by     : syuname;
+  created_at     : timestampl;
+  changed_by     : syuname;
+  changed_at     : timestampl;
+
+}

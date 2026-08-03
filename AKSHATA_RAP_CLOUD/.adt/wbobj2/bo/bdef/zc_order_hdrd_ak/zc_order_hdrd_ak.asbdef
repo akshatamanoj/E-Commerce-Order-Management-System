@@ -1,0 +1,30 @@
+projection;
+//strict ( 2 );
+use draft;
+
+define behavior for ZC_ORDER_HDRD_AK //alias <alias_name>
+{
+  use create;
+  use update;
+  use delete;
+
+  use association _Items { create; with draft; }
+
+  // --- ADD THESE TWO LINES TO EXPOSE THE ACTIONS ---
+  use action acceptOrder;
+  use action cancelOrder;
+
+  use action shipOrder;
+  use action confirmPayment;
+
+  use action packOrder;
+  use action deliverOrder;
+}
+
+define behavior for ZC_ORDER_ITEM_AK //alias <alias_item_name>
+{
+  use update;
+  use delete;
+
+  use association _Order { with draft; }
+}

@@ -1,0 +1,20 @@
+@EndUserText.label : 'Draft Table ZDAK_EC_ORDERITM'
+@AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
+@AbapCatalog.tableCategory : #TRANSPARENT
+@AbapCatalog.deliveryClass : #A
+@AbapCatalog.dataMaintenance : #RESTRICTED
+define table zdak_ec_orderitm {
+
+  key mandt   : mandt not null;
+  key orderid : abap.char(10) not null;
+  key itemno  : abap.numc(6) not null;
+  productid   : abap.char(10);
+  quantity    : abap.int4;
+  @Semantics.amount.currencyCode : 'zdak_ec_orderitm.currency'
+  unitprice   : abap.curr(15,2);
+  @Semantics.amount.currencyCode : 'zdak_ec_orderitm.currency'
+  amount      : abap.curr(15,2);
+  currency    : abap.cuky;
+  "%admin"    : include sych_bdl_draft_admin_inc;
+
+}

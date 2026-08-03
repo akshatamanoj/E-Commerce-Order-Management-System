@@ -1,0 +1,1008 @@
+CLASS zak__ec_details DEFINITION
+PUBLIC
+FINAL
+CREATE PUBLIC .
+
+  PUBLIC SECTION.
+    INTERFACES if_oo_adt_classrun.
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+ENDCLASS.
+
+
+
+CLASS zak__ec_details IMPLEMENTATION.
+  METHOD if_oo_adt_classrun~main.
+*------------------------------------------------------------*
+* Delete Existing Data
+*------------------------------------------------------------*
+    DELETE FROM zak_ec_shipping.
+    DELETE FROM zak_ec_payment.
+    DELETE FROM zak_ec_order_itm.
+    DELETE FROM zak_ec_order_hdr.
+    DELETE FROM zak_ec_product.
+    DELETE FROM zak_ec_customer.
+
+
+    DATA lv_timestamp TYPE timestampl.
+
+    GET TIME STAMP FIELD lv_timestamp.
+*------------------------------------------------------------*
+* Customer Data
+*------------------------------------------------------------*
+    DATA lt_customer TYPE STANDARD TABLE OF zak_ec_customer.
+    lt_customer = VALUE #(
+    ( client = sy-mandt
+    customer_id = 'C000000001'
+    first_name = 'Akshata'
+    last_name = 'Kumbhar'
+    email = 'akshata@gmail.com'
+    phone = '9765656890'
+    street = 'Rajiv Gandhi Infotech Park'
+    city = 'Pune'
+    state = 'MH'
+    country = 'IND'
+    postal_code = '411045'
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    customer_id = 'C000000002'
+    first_name = 'Ankita'
+    last_name = 'Kumbhar'
+    email = 'ankita@gmail.com'
+    phone = '9876573211'
+    street = 'Baner'
+    city = 'Pune'
+    state = 'MH'
+    country = 'IND'
+    postal_code = '411045'
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    customer_id = 'C000000003'
+    first_name = 'Sunita'
+    last_name = 'Kumbhar'
+    email = 'shanta@gmail.com'
+    phone = '9876543212'
+    street = 'Whitefield'
+    city = 'Bangalore'
+    state = 'KA'
+    country = 'IND'
+    postal_code = '560037'
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    customer_id = 'C000000004'
+    first_name = 'Rahul'
+    last_name = 'Sharma'
+    email = 'rahul.sharma@gmail.com'
+    phone = '9876543213'
+    street = 'OMR Road'
+    city = 'Chennai'
+    state = 'TN'
+    country = 'IND'
+    postal_code = '600119'
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    customer_id = 'C000000005'
+    first_name = 'Priya'
+    last_name = 'Nair'
+    email = 'priya.nair@gmail.com'
+    phone = '9876543214'
+    street = 'MG Road'
+    city = 'Bangalore'
+    state = 'KA'
+    country = 'IND'
+    postal_code = '560001'
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    customer_id = 'C000000006'
+    first_name = 'Arjun'
+    last_name = 'Reddy'
+    email = 'arjun.reddy@gmail.com'
+    phone = '9876543215'
+    street = 'Banjara Hills'
+    city = 'Hyderabad'
+    state = 'TS'
+    country = 'IND'
+    postal_code = '500034'
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    customer_id = 'C000000007'
+    first_name = 'Sneha'
+    last_name = 'Kulkarni'
+    email = 'sneha.kulkarni@gmail.com'
+    phone = '9876543216'
+    street = 'Kothrud'
+    city = 'Pune'
+    state = 'MH'
+    country = 'IND'
+    postal_code = '411038'
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    customer_id = 'C000000008'
+    first_name = 'Vikram'
+    last_name = 'Singh'
+    email = 'vikram.singh@gmail.com'
+    phone = '9876543217'
+    street = 'Sector 62'
+    city = 'Noida'
+    state = 'UP'
+    country = 'IND'
+    postal_code = '201309'
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    customer_id = 'C000000009'
+    first_name = 'Ananya'
+    last_name = 'Gupta'
+    email = 'ananya.gupta@gmail.com'
+    phone = '9876543218'
+    street = 'Salt Lake'
+    city = 'Kolkata'
+    state = 'WB'
+    country = 'IND'
+    postal_code = '700091'
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    customer_id = 'C000000010'
+    first_name = 'Karthik'
+    last_name = 'Iyer'
+    email = 'karthik.iyer@gmail.com'
+    phone = '9876543219'
+    street = 'Adyar'
+    city = 'Chennai'
+    state = 'TN'
+    country = 'IND'
+    postal_code = '600020'
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    customer_id = 'C000000011'
+    first_name = 'Neha'
+    last_name = 'Verma'
+    email = 'neha.verma@gmail.com'
+    phone = '9876543220'
+    street = 'Civil Lines'
+    city = 'Jaipur'
+    state = 'RJ'
+    country = 'IND'
+    postal_code = '302006'
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    customer_id = 'C000000012'
+    first_name = 'Rohan'
+    last_name = 'Mehta'
+    email = 'rohan.mehta@gmail.com'
+    phone = '9876543221'
+    street = 'Satellite Road'
+    city = 'Ahmedabad'
+    state = 'GJ'
+    country = 'IND'
+    postal_code = '380015'
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    customer_id = 'C000000013'
+    first_name = 'Pooja'
+    last_name = 'Deshmukh'
+    email = 'pooja.deshmukh@gmail.com'
+    phone = '9876543222'
+    street = 'Wardha Road'
+    city = 'Nagpur'
+    state = 'MH'
+    country = 'IND'
+    postal_code = '440015'
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ).
+    INSERT zak_ec_customer FROM TABLE @lt_customer.
+
+
+*------------------------------------------------------------*
+* Product Data
+*------------------------------------------------------------*
+    DATA lt_product TYPE STANDARD TABLE OF zak_ec_product.
+    lt_product = VALUE #(
+    ( client = sy-mandt
+    product_id = 'P000000001'
+    product_name = 'Dell Laptop'
+    category = 'Electronics'
+    description = 'Dell Inspiron 15'
+    unit_price = '65000.00'
+    currency = 'INR'
+    stock_quantity = 25
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+    ( client = sy-mandt
+    product_id = 'P000000002'
+    product_name = 'Wireless Mouse'
+    category = 'Accessories'
+    description = 'Logitech Wireless Mouse'
+    unit_price = '1200.00'
+    currency = 'INR'
+    stock_quantity = 150
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+    ( client = sy-mandt
+    product_id = 'P000000003'
+    product_name = 'Mechanical Keyboard'
+    category = 'Accessories'
+    description = 'RGB Mechanical Keyboard'
+    unit_price = '3500.00'
+    currency = 'INR'
+    stock_quantity = 80
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+    ( client = sy-mandt
+    product_id = 'P000000004'
+    product_name = 'Samsung Monitor'
+    category = 'Electronics'
+    description = '24 Inch LED Monitor'
+    unit_price = '12000.00'
+    currency = 'INR'
+    stock_quantity = 40
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+    ( client = sy-mandt
+    product_id = 'P000000005'
+    product_name = 'USB-C Charger'
+    category = 'Accessories'
+    description = '65W Fast Charger'
+    unit_price = '1800.00'
+    currency = 'INR'
+    stock_quantity = 120
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    product_id = 'P000000006'
+    product_name = 'HP Printer'
+    category = 'Electronics'
+    description = 'HP LaserJet Printer'
+    unit_price = '14500.00'
+    currency = 'INR'
+    stock_quantity = 30
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    product_id = 'P000000007'
+    product_name = 'External Hard Disk'
+    category = 'Storage'
+    description = '1TB Portable Hard Disk'
+    unit_price = '4500.00'
+    currency = 'INR'
+    stock_quantity = 75
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    product_id = 'P000000008'
+    product_name = 'USB Flash Drive'
+    category = 'Storage'
+    description = '64GB USB 3.0 Drive'
+    unit_price = '700.00'
+    currency = 'INR'
+    stock_quantity = 200
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    product_id = 'P000000009'
+    product_name = 'Webcam'
+    category = 'Accessories'
+    description = 'HD USB Webcam'
+    unit_price = '2200.00'
+    currency = 'INR'
+    stock_quantity = 60
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    product_id = 'P000000010'
+    product_name = 'Gaming Headset'
+    category = 'Accessories'
+    description = 'Noise Cancelling Headset'
+    unit_price = '3200.00'
+    currency = 'INR'
+    stock_quantity = 90
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    product_id = 'P000000011'
+    product_name = 'Lenovo Laptop'
+    category = 'Electronics'
+    description = 'Lenovo ThinkPad E14'
+    unit_price = '72000.00'
+    currency = 'INR'
+    stock_quantity = 20
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    product_id = 'P000000012'
+    product_name = 'Bluetooth Speaker'
+    category = 'Audio'
+    description = 'Portable Bluetooth Speaker'
+    unit_price = '2500.00'
+    currency = 'INR'
+    stock_quantity = 110
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    product_id = 'P000000013'
+    product_name = 'Smartphone'
+    category = 'Electronics'
+    description = 'Samsung Galaxy Smartphone'
+    unit_price = '35000.00'
+    currency = 'INR'
+    stock_quantity = 50
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    product_id = 'P000000014'
+    product_name = 'Tablet'
+    category = 'Electronics'
+    description = 'Android Tablet 10 Inch'
+    unit_price = '18000.00'
+    currency = 'INR'
+    stock_quantity = 35
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    product_id = 'P000000015'
+    product_name = 'Power Bank'
+    category = 'Accessories'
+    description = '20000mAh Fast Charging Power Bank'
+    unit_price = '1700.00'
+    currency = 'INR'
+    stock_quantity = 140
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ).
+    INSERT zak_ec_product FROM TABLE @lt_product.
+
+*------------------------------------------------------------*
+* Order Header Data
+*------------------------------------------------------------*
+    DATA lt_order_hdr TYPE STANDARD TABLE OF zak_ec_order_hdr.
+    lt_order_hdr = VALUE #(
+    ( client = sy-mandt
+    order_id = 'O000000001'
+    customer_id = 'C000000001'
+    order_date = sy-datum
+    total_amount = '66200.00'
+    currency = 'INR'
+    order_status = 'CREATED'
+    payment_status = 'PENDING'
+    shipping_status = 'PROCESSING'
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+    ( client = sy-mandt
+    order_id = 'O000000002'
+    customer_id = 'C000000002'
+    order_date = sy-datum
+    total_amount = '12000.00'
+    currency = 'INR'
+    order_status = 'CONFIRMED'
+    payment_status = 'PAID'
+    shipping_status = 'PACKED'
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+    ( client = sy-mandt
+    order_id = 'O000000003'
+    customer_id = 'C000000003'
+    order_date = sy-datum
+    total_amount = '1800.00'
+    currency = 'INR'
+    order_status = 'SHIPPED'
+    payment_status = 'PAID'
+    shipping_status = 'SHIPPED'
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    order_id = 'O000000004'
+    customer_id = 'C000000004'
+    order_date = sy-datum
+    total_amount = '14500.00'
+    currency = 'INR'
+    order_status = 'CREATED'
+    payment_status = 'PENDING'
+    shipping_status = 'PROCESSING'
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    order_id = 'O000000005'
+    customer_id = 'C000000005'
+    order_date = sy-datum
+    total_amount = '4500.00'
+    currency = 'INR'
+    order_status = 'CONFIRMED'
+    payment_status = 'PAID'
+    shipping_status = 'PACKED'
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    order_id = 'O000000006'
+    customer_id = 'C000000006'
+    order_date = sy-datum
+    total_amount = '72000.00'
+    currency = 'INR'
+    order_status = 'CONFIRMED'
+    payment_status = 'PAID'
+    shipping_status = 'PROCESSING'
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    order_id = 'O000000007'
+    customer_id = 'C000000007'
+    order_date = sy-datum
+    total_amount = '2500.00'
+    currency = 'INR'
+    order_status = 'CREATED'
+    payment_status = 'PENDING'
+    shipping_status = 'PROCESSING'
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    order_id = 'O000000008'
+    customer_id = 'C000000008'
+    order_date = sy-datum
+    total_amount = '35000.00'
+    currency = 'INR'
+    order_status = 'SHIPPED'
+    payment_status = 'PAID'
+    shipping_status = 'SHIPPED'
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    order_id = 'O000000009'
+    customer_id = 'C000000009'
+    order_date = sy-datum
+    total_amount = '18000.00'
+    currency = 'INR'
+    order_status = 'DELIVERED'
+    payment_status = 'PAID'
+    shipping_status = 'DELIVERED'
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    order_id = 'O000000010'
+    customer_id = 'C000000010'
+    order_date = sy-datum
+    total_amount = '1700.00'
+    currency = 'INR'
+    order_status = 'CREATED'
+    payment_status = 'PENDING'
+    shipping_status = 'PROCESSING'
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    order_id = 'O000000011'
+    customer_id = 'C000000011'
+    order_date = sy-datum
+    total_amount = '2200.00'
+    currency = 'INR'
+    order_status = 'CONFIRMED'
+    payment_status = 'PAID'
+    shipping_status = 'PACKED'
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    order_id = 'O000000012'
+    customer_id = 'C000000012'
+    order_date = sy-datum
+    total_amount = '3200.00'
+    currency = 'INR'
+    order_status = 'SHIPPED'
+    payment_status = 'PAID'
+    shipping_status = 'SHIPPED'
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+
+    ( client = sy-mandt
+    order_id = 'O000000013'
+    customer_id = 'C000000013'
+    order_date = sy-datum
+    total_amount = '12000.00'
+    currency = 'INR'
+    order_status = 'DELIVERED'
+    payment_status = 'PAID'
+    shipping_status = 'DELIVERED'
+    created_by = sy-uname
+    created_at = lv_timestamp
+    changed_by = sy-uname
+    changed_at = lv_timestamp )
+    ).
+
+    INSERT zak_ec_order_hdr FROM TABLE @lt_order_hdr.
+
+*------------------------------------------------------------*
+* Order Item Data
+*------------------------------------------------------------*
+    DATA lt_order_item TYPE STANDARD TABLE OF zak_ec_order_itm.
+    lt_order_item = VALUE #(
+    "Order 1
+    ( client = sy-mandt
+    order_id = 'O000000001'
+    item_no = '000001'
+    product_id = 'P000000001'
+    quantity = 1
+    unit_price = '65000.00'
+    amount = '65000.00' )
+    ( client = sy-mandt
+    order_id = 'O000000001'
+    item_no = '000002'
+    product_id = 'P000000002'
+    quantity = 1
+    unit_price = '1200.00'
+    amount = '1200.00' )
+    "Order 2
+    ( client = sy-mandt
+    order_id = 'O000000002'
+    item_no = '000001'
+    product_id = 'P000000004'
+    quantity = 1
+    unit_price = '12000.00'
+    amount = '12000.00' )
+    "Order 3
+    ( client = sy-mandt
+    order_id = 'O000000003'
+    item_no = '000001'
+    product_id = 'P000000005'
+    quantity = 1
+    unit_price = '1800.00'
+    amount = '1800.00' )
+
+    "Order 4
+    ( client = sy-mandt
+    order_id = 'O000000004'
+    item_no = '000001'
+    product_id = 'P000000006'
+    quantity = 1
+    unit_price = '14500.00'
+    amount = '14500.00' )
+
+    "Order 5
+    ( client = sy-mandt
+    order_id = 'O000000005'
+    item_no = '000001'
+    product_id = 'P000000007'
+    quantity = 1
+    unit_price = '4500.00'
+    amount = '4500.00' )
+
+    "Order 6
+    ( client = sy-mandt
+    order_id = 'O000000006'
+    item_no = '000001'
+    product_id = 'P000000011'
+    quantity = 1
+    unit_price = '72000.00'
+    amount = '72000.00' )
+
+    "Order 7
+    ( client = sy-mandt
+    order_id = 'O000000007'
+    item_no = '000001'
+    product_id = 'P000000012'
+    quantity = 1
+    unit_price = '2500.00'
+    amount = '2500.00' )
+
+    "Order 8
+    ( client = sy-mandt
+    order_id = 'O000000008'
+    item_no = '000001'
+    product_id = 'P000000013'
+    quantity = 1
+    unit_price = '35000.00'
+    amount = '35000.00' )
+
+    "Order 9
+    ( client = sy-mandt
+    order_id = 'O000000009'
+    item_no = '000001'
+    product_id = 'P000000014'
+    quantity = 1
+    unit_price = '18000.00'
+    amount = '18000.00' )
+
+    "Order 10
+    ( client = sy-mandt
+    order_id = 'O000000010'
+    item_no = '000001'
+    product_id = 'P000000015'
+    quantity = 1
+    unit_price = '1700.00'
+    amount = '1700.00' )
+
+    "Order 11
+    ( client = sy-mandt
+    order_id = 'O000000011'
+    item_no = '000001'
+    product_id = 'P000000009'
+    quantity = 1
+    unit_price = '2200.00'
+    amount = '2200.00' )
+
+    "Order 12
+    ( client = sy-mandt
+    order_id = 'O000000012'
+    item_no = '000001'
+    product_id = 'P000000010'
+    quantity = 1
+    unit_price = '3200.00'
+    amount = '3200.00' )
+
+    "Order 13
+    ( client = sy-mandt
+    order_id = 'O000000013'
+    item_no = '000001'
+    product_id = 'P000000004'
+    quantity = 1
+    unit_price = '12000.00'
+    amount = '12000.00' )
+    ).
+    INSERT zak_ec_order_itm FROM TABLE @lt_order_item.
+
+*------------------------------------------------------------*
+* Payment Data
+*------------------------------------------------------------*
+    DATA lt_payment TYPE STANDARD TABLE OF zak_ec_payment.
+    lt_payment = VALUE #(
+    ( client = sy-mandt
+    payment_id = 'PAY0000001'
+    order_id = 'O000000001'
+    payment_method = 'UPI'
+    payment_status = 'PENDING'
+    amount = '66200.00'
+    currency = 'INR' )
+    ( client = sy-mandt
+    payment_id = 'PAY0000002'
+    order_id = 'O000000002'
+    payment_method = 'Credit Card'
+    payment_status = 'PAID'
+    amount = '12000.00'
+    currency = 'INR' )
+    ( client = sy-mandt
+    payment_id = 'PAY0000003'
+    order_id = 'O000000003'
+    payment_method = 'Net Banking'
+    payment_status = 'PAID'
+    amount = '1800.00'
+    currency = 'INR' )
+
+    ( client = sy-mandt
+    payment_id = 'PAY0000004'
+    order_id = 'O000000004'
+    payment_method = 'UPI'
+    payment_status = 'PENDING'
+    amount = '14500.00'
+    currency = 'INR' )
+
+    ( client = sy-mandt
+    payment_id = 'PAY0000005'
+    order_id = 'O000000005'
+    payment_method = 'Credit Card'
+    payment_status = 'PAID'
+    amount = '4500.00'
+    currency = 'INR' )
+
+    ( client = sy-mandt
+    payment_id = 'PAY0000006'
+    order_id = 'O000000006'
+    payment_method = 'Net Banking'
+    payment_status = 'PAID'
+    amount = '72000.00'
+    currency = 'INR' )
+
+    ( client = sy-mandt
+    payment_id = 'PAY0000007'
+    order_id = 'O000000007'
+    payment_method = 'Debit Card'
+    payment_status = 'PENDING'
+    amount = '2500.00'
+    currency = 'INR' )
+
+    ( client = sy-mandt
+    payment_id = 'PAY0000008'
+    order_id = 'O000000008'
+    payment_method = 'UPI'
+    payment_status = 'PAID'
+    amount = '35000.00'
+    currency = 'INR' )
+
+    ( client = sy-mandt
+    payment_id = 'PAY0000009'
+    order_id = 'O000000009'
+    payment_method = 'Credit Card'
+    payment_status = 'PAID'
+    amount = '18000.00'
+    currency = 'INR' )
+
+    ( client = sy-mandt
+    payment_id = 'PAY0000010'
+    order_id = 'O000000010'
+    payment_method = 'UPI'
+    payment_status = 'PENDING'
+    amount = '1700.00'
+    currency = 'INR' )
+
+    ( client = sy-mandt
+    payment_id = 'PAY0000011'
+    order_id = 'O000000011'
+    payment_method = 'Net Banking'
+    payment_status = 'PAID'
+    amount = '2200.00'
+    currency = 'INR' )
+
+    ( client = sy-mandt
+    payment_id = 'PAY0000012'
+    order_id = 'O000000012'
+    payment_method = 'Debit Card'
+    payment_status = 'PAID'
+    amount = '3200.00'
+    currency = 'INR' )
+
+    ( client = sy-mandt
+    payment_id = 'PAY0000013'
+    order_id = 'O000000013'
+    payment_method = 'Credit Card'
+    payment_status = 'PAID'
+    amount = '12000.00'
+    currency = 'INR' )
+    ).
+    INSERT zak_ec_payment FROM TABLE @lt_payment.
+
+*------------------------------------------------------------*
+* Shipping Data
+*------------------------------------------------------------*
+    DATA lt_shipping TYPE STANDARD TABLE OF zak_ec_shipping.
+    lt_shipping = VALUE #(
+    ( client = sy-mandt
+    shipment_id = 'SHIP000001'
+    order_id = 'O000000001'
+    courier_name = 'BlueDart'
+    tracking_number = 'BD123456789'
+    shipped_date = sy-datum
+    delivery_date = sy-datum + 3
+    shipping_status = 'PROCESSING' )
+    ( client = sy-mandt
+    shipment_id = 'SHIP000002'
+    order_id = 'O000000002'
+    courier_name = 'DTDC'
+    tracking_number = 'DT987654321'
+    shipped_date = sy-datum
+    delivery_date = sy-datum + 2
+    shipping_status = 'SHIPPED' )
+    ( client = sy-mandt
+    shipment_id = 'SHIP000003'
+    order_id = 'O000000003'
+    courier_name = 'Delhivery'
+    tracking_number = 'DL456789123'
+    shipped_date = sy-datum
+    delivery_date = sy-datum + 4
+    shipping_status = 'OUT FOR DELIVERY' )
+
+    ( client = sy-mandt
+    shipment_id = 'SHIP000004'
+    order_id = 'O000000004'
+    courier_name = 'BlueDart'
+    tracking_number = 'BD234567890'
+    shipped_date = sy-datum
+    delivery_date = sy-datum + 3
+    shipping_status = 'PROCESSING' )
+
+    ( client = sy-mandt
+    shipment_id = 'SHIP000005'
+    order_id = 'O000000005'
+    courier_name = 'DTDC'
+    tracking_number = 'DT876543210'
+    shipped_date = sy-datum
+    delivery_date = sy-datum + 2
+    shipping_status = 'SHIPPED' )
+
+    ( client = sy-mandt
+    shipment_id = 'SHIP000006'
+    order_id = 'O000000006'
+    courier_name = 'Delhivery'
+    tracking_number = 'DL567891234'
+    shipped_date = sy-datum
+    delivery_date = sy-datum + 4
+    shipping_status = 'PROCESSING' )
+
+    ( client = sy-mandt
+    shipment_id = 'SHIP000007'
+    order_id = 'O000000007'
+    courier_name = 'XpressBees'
+    tracking_number = 'XB345678901'
+    shipped_date = sy-datum
+    delivery_date = sy-datum + 5
+    shipping_status = 'PROCESSING' )
+
+    ( client = sy-mandt
+    shipment_id = 'SHIP000008'
+    order_id = 'O000000008'
+    courier_name = 'Ecom Express'
+    tracking_number = 'EC987654123'
+    shipped_date = sy-datum
+    delivery_date = sy-datum + 3
+    shipping_status = 'SHIPPED' )
+
+    ( client = sy-mandt
+    shipment_id = 'SHIP000009'
+    order_id = 'O000000009'
+    courier_name = 'BlueDart'
+    tracking_number = 'BD678912345'
+    shipped_date = sy-datum
+    delivery_date = sy-datum + 2
+    shipping_status = 'DELIVERED' )
+
+    ( client = sy-mandt
+    shipment_id = 'SHIP000010'
+    order_id = 'O000000010'
+    courier_name = 'DTDC'
+    tracking_number = 'DT123459876'
+    shipped_date = sy-datum
+    delivery_date = sy-datum + 4
+    shipping_status = 'PROCESSING' )
+
+    ( client = sy-mandt
+    shipment_id = 'SHIP000011'
+    order_id = 'O000000011'
+    courier_name = 'Delhivery'
+    tracking_number = 'DL789123456'
+    shipped_date = sy-datum
+    delivery_date = sy-datum + 3
+    shipping_status = 'SHIPPED' )
+
+    ( client = sy-mandt
+    shipment_id = 'SHIP000012'
+    order_id = 'O000000012'
+    courier_name = 'XpressBees'
+    tracking_number = 'XB456789123'
+    shipped_date = sy-datum
+    delivery_date = sy-datum + 2
+    shipping_status = 'OUT FOR DELIVERY' )
+
+    ( client = sy-mandt
+    shipment_id = 'SHIP000013'
+    order_id = 'O000000013'
+    courier_name = 'Ecom Express'
+    tracking_number = 'EC123987654'
+    shipped_date = sy-datum
+    delivery_date = sy-datum + 1
+    shipping_status = 'DELIVERED' )
+    ).
+    INSERT zak_ec_shipping FROM TABLE @lt_shipping.
+*------------------------------------------------------------*
+* Console Output
+*------------------------------------------------------------*
+    out->write( '=====================================' ).
+    out->write( ' E-Commerce Test Data Loaded' ).
+    out->write( '=====================================' ).
+    out->write( 'Customers : 13' ).
+    out->write( 'Products : 15' ).
+    out->write( 'Orders : 13' ).
+    out->write( 'Order Items : 14' ).
+    out->write( 'Payments : 13' ).
+    out->write( 'Shipments : 13' ).
+    out->write( '=====================================' ).
+    out->write( 'Data inserted successfully!' ).
+  ENDMETHOD.
+ENDCLASS.

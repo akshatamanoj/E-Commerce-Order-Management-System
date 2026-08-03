@@ -1,0 +1,61 @@
+CLASS zcl_load_customer_data DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
+
+  PUBLIC SECTION.
+    INTERFACES if_oo_adt_classrun.
+ENDCLASS.
+
+CLASS zcl_load_customer_data IMPLEMENTATION.
+
+  METHOD if_oo_adt_classrun~main.
+
+    DATA lt_customer TYPE TABLE OF zcustomer_data.
+
+    lt_customer = VALUE #(
+
+      ( customer_id   = 'C0001'
+        customer_name = 'Rahul Sharma'
+        email         = 'rahul@gmail.com'
+        phone         = '9876543210'
+        city          = 'Pune'
+        country       = 'IND' )
+
+      ( customer_id   = 'C0002'
+        customer_name = 'Priya Patil'
+        email         = 'priya@gmail.com'
+        phone         = '9876543211'
+        city          = 'Mumbai'
+        country       = 'IND' )
+
+      ( customer_id   = 'C0003'
+        customer_name = 'Amit Kumar'
+        email         = 'amit@gmail.com'
+        phone         = '9876543212'
+        city          = 'Bangalore'
+        country       = 'IND' )
+
+      ( customer_id   = 'C0004'
+        customer_name = 'Sneha Reddy'
+        email         = 'sneha@gmail.com'
+        phone         = '9876543213'
+        city          = 'Hyderabad'
+        country       = 'IND' )
+
+      ( customer_id   = 'C0005'
+        customer_name = 'Rohit Verma'
+        email         = 'rohit@gmail.com'
+        phone         = '9876543214'
+        city          = 'Delhi'
+        country       = 'IND' )
+
+    ).
+
+    INSERT zcustomer_data FROM TABLE @lt_customer.
+
+    out->write( 'Customer master data loaded successfully' ).
+
+  ENDMETHOD.
+
+ENDCLASS.

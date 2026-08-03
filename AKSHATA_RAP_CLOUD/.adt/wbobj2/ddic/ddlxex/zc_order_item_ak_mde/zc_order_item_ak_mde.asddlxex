@@ -1,0 +1,98 @@
+@Metadata.layer: #CORE
+@UI.headerInfo: {
+  typeName: 'Order Item',
+  typeNamePlural: 'Order Items',
+  title: {
+    value: 'ProductId'
+  },
+  description: {
+    value: 'ItemNo'
+  }
+}
+annotate entity ZC_ORDER_ITEM_AK with
+ 
+{
+
+  @UI.identification: [
+    // ... Your existing fields ...
+ 
+    {
+      type: #FOR_ACTION,
+      dataAction: 'acceptOrder',
+      label: 'Accept Order'
+    },
+    {
+      type: #FOR_ACTION,
+      dataAction: 'cancelOrder',
+      label: 'Cancel Order'
+    },
+    
+    {
+      type: #FOR_ACTION,
+      dataAction: 'shipOrder',
+      label: 'Ship Order'
+    },
+    
+   {
+     type: #FOR_ACTION,
+     dataAction: 'confirmPayment',
+     label: 'Confirm Payment'
+     },
+     
+     {
+     type: #FOR_ACTION,
+     dataAction: 'packOrder',
+     label: 'Pack Order'
+     },
+     
+    {
+    type: #FOR_ACTION,
+    dataAction: 'deliverOrder',
+    label: 'Deliver Order'
+    }
+ 
+  ]
+ 
+ 
+  @UI.facet: [
+  {
+   id: 'ItemDetails',
+   type: #FIELDGROUP_REFERENCE,
+   targetQualifier: 'ITEM',
+   label: 'Item Details',
+   position: 10
+  }
+  ]
+ 
+  @UI.lineItem: [{ position: 10 }]
+  @UI.identification: [{ position: 10 }]
+  @UI.fieldGroup: [{ qualifier: 'ITEM', position: 10 }]
+  @EndUserText.label: 'Item Number'
+  ItemNo;
+ 
+  @UI.lineItem: [{ position: 20 }]
+  @UI.identification: [{ position: 20 }]
+  @UI.fieldGroup: [{ qualifier: 'ITEM', position: 20 }]
+  @EndUserText.label: 'Product ID'
+  ProductId;
+ 
+  @UI.lineItem: [{ position: 30 }]
+  @UI.identification: [{ position: 30 }]
+  @UI.fieldGroup: [{ qualifier: 'ITEM', position: 30 }]
+  @EndUserText.label: 'Quantity'
+  Quantity;
+ 
+  @UI.lineItem: [{ position: 40 }]
+  @UI.identification: [{ position: 40 }]
+  @UI.fieldGroup: [{ qualifier: 'ITEM', position: 40 }]
+  @EndUserText.label: 'Unit Price'
+  UnitPrice;
+ 
+  @UI.lineItem: [{ position: 50 }]
+  @UI.identification: [{ position: 50 }]
+  @UI.fieldGroup: [{ qualifier: 'ITEM', position: 50 }]
+  @EndUserText.label: 'Amount'
+  Amount;
+ 
+}
+ 

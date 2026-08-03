@@ -1,0 +1,8 @@
+@EndUserText.label: 'Ecommerce Service Definition'
+define service ZUI_ECOM_SD {
+  expose ZI_CUSTOMER_VH_AK     as CustomerVH;
+  expose ZI_ORDER_STATUS_VH_AK as OrderStatusVH;
+  expose ZI_ORDER_ID_VH_AK     as OrderIdVH;
+  expose ZC_ORDER_HDRD_AK;
+  expose ZC_ORDER_ITEM_AK;
+}

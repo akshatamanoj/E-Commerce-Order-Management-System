@@ -1,0 +1,24 @@
+@EndUserText.label : 'Draft table for entity ZI_ORDER_HDRS'
+@AbapCatalog.enhancement.category : #EXTENSIBLE_ANY
+@AbapCatalog.tableCategory : #TRANSPARENT
+@AbapCatalog.deliveryClass : #A
+@AbapCatalog.dataMaintenance : #RESTRICTED
+define table zdak_ec_orderhdr {
+
+  key mandt      : mandt not null;
+  key orderid    : abap.char(10) not null;
+  customerid     : abap.char(10);
+  orderdate      : abap.dats;
+  @Semantics.amount.currencyCode : 'zdak_ec_orderhdr.currency'
+  totalamount    : abap.curr(15,2);
+  currency       : abap.cuky;
+  orderstatus    : abap.char(20);
+  paymentstatus  : abap.char(20);
+  shippingstatus : abap.char(20);
+  createdby      : syuname;
+  createdat      : timestampl;
+  changedby      : syuname;
+  changedat      : timestampl;
+  "%admin"       : include sych_bdl_draft_admin_inc;
+
+}

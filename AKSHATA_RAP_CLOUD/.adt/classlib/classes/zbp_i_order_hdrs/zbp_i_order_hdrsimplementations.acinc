@@ -1,0 +1,440 @@
+CLASS lhc_ZI_ORDER_HDRS DEFINITION INHERITING FROM cl_abap_behavior_handler.
+  PRIVATE SECTION.
+
+    METHODS get_instance_features FOR INSTANCE FEATURES
+      IMPORTING keys REQUEST requested_features FOR zi_order_hdrs RESULT result.
+
+    METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
+      IMPORTING keys REQUEST requested_authorizations FOR zi_order_hdrs RESULT result.
+
+    METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
+      IMPORTING REQUEST requested_authorizations FOR zi_order_hdrs RESULT result.
+
+    "METHODS CalculateTotalAmount FOR DETERMINE ON MODIFY
+    "IMPORTING keys FOR zi_order_hdrs~CalculateTotalAmount.
+
+    METHODS ValidateCustomer FOR VALIDATE ON SAVE
+      IMPORTING keys FOR zi_order_hdrs~ValidateCustomer.
+    METHODS acceptOrder FOR MODIFY
+      IMPORTING keys FOR ACTION zi_order_hdrs~acceptOrder RESULT result.
+
+    METHODS cancelOrder FOR MODIFY
+      IMPORTING keys FOR ACTION zi_order_hdrs~cancelOrder RESULT result.
+
+    METHODS confirmPayment FOR MODIFY
+      IMPORTING keys FOR ACTION zi_order_hdrs~confirmPayment RESULT result.
+
+    METHODS shipOrder FOR MODIFY
+      IMPORTING keys FOR ACTION zi_order_hdrs~shipOrder RESULT result.
+
+    METHODS deliverOrder FOR MODIFY
+      IMPORTING keys FOR ACTION zi_order_hdrs~deliverOrder RESULT result.
+
+    METHODS packOrder FOR MODIFY
+      IMPORTING keys FOR ACTION zi_order_hdrs~packOrder RESULT result.
+
+
+
+ENDCLASS.
+
+CLASS lhc_ZI_ORDER_HDRS IMPLEMENTATION.
+
+  METHOD get_instance_features.
+    " Read the current status of the orders to decide if buttons should be enabled
+    READ ENTITIES OF zi_order_hdrs IN LOCAL MODE
+      ENTITY zi_order_hdrs
+        FIELDS ( OrderStatus PaymentStatus ) WITH CORRESPONDING #( keys )
+      RESULT DATA(lt_orders).
+
+    result = VALUE #( FOR order IN lt_orders
+      ( %tky = order-%tky
+        " Disable 'Accept' if already accepted ('A') or cancelled ('X')
+        %action-acceptOrder = COND #( WHEN order-OrderStatus = 'ACCEPTED' OR order-OrderStatus = 'X'
+                                      THEN if_abap_behv=>fc-o-disabled
+                                      ELSE if_abap_behv=>fc-o-enabled )
+        " Disable 'Cancel' if already cancelled ('X')
+        %action-cancelOrder = COND #( WHEN order-OrderStatus = 'CANCELLED'
+                                      THEN if_abap_behv=>fc-o-disabled
+                                      ELSE if_abap_behv=>fc-o-enabled )
+
+        " Ship Order: Only allow if order is already Accepted ('A')
+        %action-shipOrder = COND #( WHEN order-OrderStatus = 'ACCEPTED'
+                                    THEN if_abap_behv=>fc-o-enabled
+                                    ELSE if_abap_behv=>fc-o-disabled )
+
+        " Confirm Payment: Only allow if currently Pending
+        %action-confirmPayment = COND #( WHEN order-PaymentStatus = 'PENDING' AND order-OrderStatus <> 'X'
+                                         THEN if_abap_behv=>fc-o-enabled
+                                         ELSE if_abap_behv=>fc-o-disabled )
+
+       " Pack Order: Only enable if the order is Accepted ('A') and not yet packed
+        %action-packOrder = COND #( WHEN order-OrderStatus = 'ACCEPTED'
+                                    THEN if_abap_behv=>fc-o-enabled
+                                    ELSE if_abap_behv=>fc-o-disabled )
+
+       " Deliver Order: Only enable if the order has been packed ('P') or shipped ('S')
+        %action-deliverOrder = COND #( WHEN order-OrderStatus = 'PACKED' OR order-OrderStatus = 'S'
+                                       THEN if_abap_behv=>fc-o-enabled
+                                       ELSE if_abap_behv=>fc-o-disabled )
+      ) ).
+  ENDMETHOD.
+
+  METHOD get_instance_authorizations.
+  ENDMETHOD.
+
+  METHOD get_global_authorizations.
+  ENDMETHOD.
+
+
+  METHOD ValidateCustomer.
+
+    READ ENTITIES OF zi_order_hdrs IN LOCAL MODE
+      ENTITY zi_order_hdrs
+      FIELDS ( CustomerId )
+      WITH CORRESPONDING #( keys )
+      RESULT DATA(lt_hdr).
+
+    LOOP AT lt_hdr INTO DATA(ls_hdr).
+
+      SELECT SINGLE customer_id
+        FROM zak_ec_customer
+        WHERE customer_id = @ls_hdr-CustomerId
+        INTO @DATA(lv_customer).
+
+      IF sy-subrc <> 0.
+
+        APPEND VALUE #(
+           %tky = ls_hdr-%tky
+        ) TO failed-zi_order_hdrs.
+
+        APPEND VALUE #(
+           %tky = ls_hdr-%tky
+           %msg =
+             new_message(
+               id       = 'ZMSG_AK'
+               number   = '003'
+               severity = if_abap_behv_message=>severity-error
+             )
+        ) TO reported-zi_order_hdrs.
+
+      ENDIF.
+
+    ENDLOOP.
+
+  ENDMETHOD.
+
+
+  METHOD acceptOrder.
+
+    " 1. Update the order status to 'Accepted' (Assuming 'A' represents Accepted)
+    MODIFY ENTITIES OF zi_order_hdrs IN LOCAL MODE
+      ENTITY zi_order_hdrs
+        UPDATE FIELDS ( OrderStatus )
+        WITH VALUE #( FOR key IN keys ( %tky        = key-%tky
+                                        OrderStatus = 'ACCEPTED' ) )
+      FAILED failed
+      REPORTED reported.
+
+    " 2. Read the updated data to return the result ($self)
+    READ ENTITIES OF zi_order_hdrs IN LOCAL MODE
+      ENTITY zi_order_hdrs
+        ALL FIELDS WITH CORRESPONDING #( keys )
+      RESULT DATA(lt_orders).
+
+    result = VALUE #( FOR order IN lt_orders ( %tky   = order-%tky
+                                               %param = order ) ).
+
+  ENDMETHOD.
+
+  METHOD cancelOrder.
+    " 1. Update the order status to 'Cancelled' (Assuming 'X' represents Cancelled)
+    MODIFY ENTITIES OF zi_order_hdrs IN LOCAL MODE
+      ENTITY zi_order_hdrs
+        UPDATE FIELDS ( OrderStatus )
+        WITH VALUE #( FOR key IN keys ( %tky        = key-%tky
+                                        OrderStatus = 'CANCELLED' ) )
+      FAILED failed
+      REPORTED reported.
+
+    " 2. Read back the data for the result
+    READ ENTITIES OF zi_order_hdrs IN LOCAL MODE
+      ENTITY zi_order_hdrs
+        ALL FIELDS WITH CORRESPONDING #( keys )
+      RESULT DATA(lt_orders).
+
+    result = VALUE #( FOR order IN lt_orders ( %tky   = order-%tky
+                                               %param = order ) ).
+  ENDMETHOD.
+
+  METHOD confirmPayment.
+    " Change payment tracking flag to Paid
+    MODIFY ENTITIES OF zi_order_hdrs IN LOCAL MODE
+      ENTITY zi_order_hdrs
+        UPDATE FIELDS ( PaymentStatus )
+        WITH VALUE #( FOR key IN keys ( %tky          = key-%tky
+                                        PaymentStatus = 'PAID' ) )
+      FAILED failed
+      REPORTED reported.
+
+    READ ENTITIES OF zi_order_hdrs IN LOCAL MODE
+      ENTITY zi_order_hdrs ALL FIELDS WITH CORRESPONDING #( keys )
+      RESULT DATA(lt_orders).
+
+    result = VALUE #( FOR order IN lt_orders ( %tky = order-%tky %param = order ) ).
+
+
+  ENDMETHOD.
+
+  METHOD shipOrder.
+    " Update status to Shipped ('S') and log logistics field
+    MODIFY ENTITIES OF zi_order_hdrs IN LOCAL MODE
+      ENTITY zi_order_hdrs
+        UPDATE FIELDS ( OrderStatus ShippingStatus )
+        WITH VALUE #( FOR key IN keys ( %tky           = key-%tky
+                                        OrderStatus    = 'S'
+                                        ShippingStatus = 'SHIPPED' ) )
+      FAILED failed
+      REPORTED reported.
+
+    " Return the updated record back to the UI grid
+    READ ENTITIES OF zi_order_hdrs IN LOCAL MODE
+      ENTITY zi_order_hdrs ALL FIELDS WITH CORRESPONDING #( keys )
+      RESULT DATA(lt_orders).
+
+    result = VALUE #( FOR order IN lt_orders ( %tky = order-%tky %param = order ) ).
+  ENDMETHOD.
+
+  METHOD deliverOrder.
+    " 1. Read the current tracking status to verify it was packed first
+    READ ENTITIES OF zi_order_hdrs IN LOCAL MODE
+      ENTITY zi_order_hdrs
+        FIELDS ( ShippingStatus ) WITH CORRESPONDING #( keys )
+      RESULT DATA(lt_check_orders).
+
+    LOOP AT lt_check_orders ASSIGNING FIELD-SYMBOL(<fs_check>).
+      " Business Safeguard: Fail the action if the item wasn't packed yet
+      IF <fs_check>-ShippingStatus <> 'PACKED' AND <fs_check>-ShippingStatus <> 'SHIPPED'.
+        APPEND VALUE #(
+          %tky = <fs_check>-%tky
+          %fail-cause = if_abap_behv=>cause-unspecific
+        ) TO failed-zi_order_hdrs.
+
+        APPEND VALUE #(
+         %tky = <fs_check>-%tky
+         %msg = new_message( id       = 'ZMSG_AK'
+                             number   = '006' "Cannot deliver an item that hasn''t been packed or shipped!'
+                  severity = if_abap_behv_message=>severity-error
+                )
+       ) TO reported-zi_order_hdrs.
+
+        RETURN. " Terminate processing
+      ENDIF.
+    ENDLOOP.
+
+    " 2. Proceed with updates if validation passes
+    MODIFY ENTITIES OF zi_order_hdrs IN LOCAL MODE
+      ENTITY zi_order_hdrs
+        UPDATE FIELDS ( OrderStatus ShippingStatus )
+        WITH VALUE #( FOR key IN keys ( %tky           = key-%tky
+                                        OrderStatus    = 'D'        " D = Delivered
+                                        ShippingStatus = 'DELIVERED' ) )
+      FAILED failed
+      REPORTED reported.
+
+    " 3. Generate a friendly informational message for success
+    LOOP AT keys ASSIGNING FIELD-SYMBOL(<fs_key_del>).
+      APPEND VALUE #(
+     %tky = <fs_key_del>-%tky
+     %msg = new_message( id       = 'ZMSG_AK'
+                         number   = '007' "Handover complete. Order marked as Delivered.'
+              severity = if_abap_behv_message=>severity-success
+            )
+   ) TO reported-zi_order_hdrs.
+    ENDLOOP.
+
+    READ ENTITIES OF zi_order_hdrs IN LOCAL MODE
+      ENTITY zi_order_hdrs ALL FIELDS WITH CORRESPONDING #( keys )
+      RESULT DATA(lt_orders).
+
+    result = VALUE #( FOR order IN lt_orders ( %tky = order-%tky %param = order ) ).
+  ENDMETHOD.
+
+  METHOD packOrder.
+    " 1. Update the Order and Shipping Status
+    MODIFY ENTITIES OF zi_order_hdrs IN LOCAL MODE
+      ENTITY zi_order_hdrs
+        UPDATE FIELDS ( OrderStatus ShippingStatus )
+        WITH VALUE #( FOR key IN keys ( %tky           = key-%tky
+                                        OrderStatus    = 'P'        " P = Packed / Processing
+                                        ShippingStatus = 'PACKED' ) )
+      FAILED failed
+      REPORTED reported.
+
+    " 2. Populate a success toast message back to the UI
+    LOOP AT keys ASSIGNING FIELD-SYMBOL(<fs_key>).
+      APPEND VALUE #(
+    %tky = <fs_key>-%tky
+    %msg = new_message( id       = 'ZMSG_AK'
+                        number   = '008'"Order successfully packed and prepared for transit!'
+             severity = if_abap_behv_message=>severity-success
+           )
+  ) TO reported-zi_order_hdrs.
+    ENDLOOP.
+
+    " 3. Synchronize UI dataset state
+    READ ENTITIES OF zi_order_hdrs IN LOCAL MODE
+      ENTITY zi_order_hdrs ALL FIELDS WITH CORRESPONDING #( keys )
+      RESULT DATA(lt_orders).
+
+    result = VALUE #( FOR order IN lt_orders ( %tky = order-%tky %param = order ) ).
+  ENDMETHOD.
+
+
+
+ENDCLASS.
+
+CLASS lhc_ZI_ORDER_ITEMS DEFINITION INHERITING FROM cl_abap_behavior_handler.
+  PRIVATE SECTION.
+
+    METHODS CalculateAmount FOR DETERMINE ON MODIFY
+      IMPORTING keys FOR zi_order_items~CalculateAmount.
+
+    METHODS ValidateProduct FOR VALIDATE ON SAVE
+      IMPORTING keys FOR zi_order_items~ValidateProduct.
+
+    METHODS ValidateQuantity FOR VALIDATE ON SAVE
+      IMPORTING keys FOR zi_order_items~ValidateQuantity.
+
+ENDCLASS.
+
+CLASS lhc_ZI_ORDER_ITEMS IMPLEMENTATION.
+
+  METHOD CalculateAmount.
+    " 1. Read the current items being modified to get their IDs
+    READ ENTITIES OF zi_order_hdrs IN LOCAL MODE
+      ENTITY zi_order_items
+      FIELDS ( OrderId Quantity UnitPrice )
+      WITH CORRESPONDING #( keys )
+      RESULT DATA(lt_items).
+
+    IF lt_items IS INITIAL.
+      RETURN.
+    ENDIF.
+
+    " 2. Calculate and update individual line item amounts
+    DATA lt_update_items TYPE TABLE FOR UPDATE zi_order_items.
+    lt_update_items = VALUE #( FOR ls_item IN lt_items
+      ( %tky   = ls_item-%tky
+        Amount = ls_item-Quantity * ls_item-UnitPrice ) ).
+
+    MODIFY ENTITIES OF zi_order_hdrs IN LOCAL MODE
+      ENTITY zi_order_items
+      UPDATE FIELDS ( Amount ) WITH lt_update_items.
+
+    " 3. Get the Parent Order ID and Draft Status
+    DATA(lv_order_id) = lt_items[ 1 ]-OrderId.
+    DATA(lv_is_draft) = lt_items[ 1 ]-%is_draft. " <--- FIX 1: Capture the draft indicator
+
+    " 4. Read ALL items belonging to this specific Order Header using the correct Draft State
+    READ ENTITIES OF zi_order_hdrs IN LOCAL MODE
+      ENTITY zi_order_hdrs BY \_Items
+      FIELDS ( Quantity UnitPrice )
+      WITH VALUE #( ( %tky-OrderId   = lv_order_id
+                      %tky-%is_draft = lv_is_draft ) ) " <--- FIX 2: Explicitly pass draft status
+      RESULT DATA(lt_all_items).
+
+    " 5. Accumulate the total across all items
+    DATA lv_total TYPE zak_ec_order_hdr-total_amount.
+    CLEAR lv_total.
+
+    LOOP AT lt_all_items INTO DATA(ls_all_item).
+      lv_total = lv_total + ( ls_all_item-Quantity * ls_all_item-UnitPrice ).
+    ENDLOOP.
+
+    " 6. Update the Parent Header Total Amount
+    DATA lt_update_header TYPE TABLE FOR UPDATE zi_order_hdrs.
+    lt_update_header = VALUE #( (
+      %tky-OrderId   = lv_order_id                        " <--- FIX 3: Keep the %tky consistent
+      %tky-%is_draft = lv_is_draft
+      TotalAmount    = lv_total
+    ) ).
+
+    MODIFY ENTITIES OF zi_order_hdrs IN LOCAL MODE
+      ENTITY zi_order_hdrs
+      UPDATE FIELDS ( TotalAmount ) WITH lt_update_header.
+
+  ENDMETHOD.
+
+
+
+
+  METHOD ValidateProduct.
+
+    READ ENTITIES OF zi_order_hdrs IN LOCAL MODE
+      ENTITY zi_order_items
+      FIELDS ( ProductId )
+      WITH CORRESPONDING #( keys )
+      RESULT DATA(lt_items).
+
+    LOOP AT lt_items INTO DATA(ls_item).
+
+      SELECT SINGLE product_id
+        FROM zak_ec_product
+        WHERE product_id = @ls_item-ProductId
+        INTO @DATA(lv_product).
+
+      IF sy-subrc <> 0.
+
+        APPEND VALUE #(
+          %tky = ls_item-%tky
+        ) TO failed-zi_order_items.
+
+        APPEND VALUE #(
+          %tky = ls_item-%tky
+          %msg =
+            new_message(
+              id       = 'ZMSG_AK'
+              number   = '002'
+              severity = if_abap_behv_message=>severity-error
+            )
+        ) TO reported-zi_order_items.
+
+      ENDIF.
+
+    ENDLOOP.
+
+  ENDMETHOD.
+
+
+  METHOD ValidateQuantity.
+
+    READ ENTITIES OF zi_order_hdrs IN LOCAL MODE
+      ENTITY zi_order_items
+      FIELDS ( Quantity )
+      WITH CORRESPONDING #( keys )
+      RESULT DATA(lt_items).
+
+    LOOP AT lt_items INTO DATA(ls_item).
+
+      IF ls_item-Quantity <= 0.
+
+        APPEND VALUE #(
+            %tky = ls_item-%tky
+        ) TO failed-zi_order_items.
+
+        APPEND VALUE #(
+            %tky = ls_item-%tky
+            %msg =
+               new_message(
+                 id       = 'ZMSG_AK'
+                 number   = '001'
+                 severity = if_abap_behv_message=>severity-error
+               )
+        ) TO reported-zi_order_items.
+
+      ENDIF.
+
+    ENDLOOP.
+
+  ENDMETHOD.
+ENDCLASS.

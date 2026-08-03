@@ -1,0 +1,23 @@
+@EndUserText.label : 'Sales Order Header'
+@AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
+@AbapCatalog.tableCategory : #TRANSPARENT
+@AbapCatalog.deliveryClass : #A
+@AbapCatalog.dataMaintenance : #RESTRICTED
+define table zak_ec_order_hdr {
+
+  key client      : abap.clnt not null;
+  key order_id    : abap.char(10) not null;
+  customer_id     : abap.char(10);
+  order_date      : abap.dats;
+  @Semantics.amount.currencyCode : 'zak_ec_order_hdr.currency'
+  total_amount    : abap.curr(15,2);
+  currency        : abap.cuky;
+  order_status    : abap.char(20);
+  payment_status  : abap.char(20);
+  shipping_status : abap.char(20);
+  created_by      : syuname;
+  created_at      : timestampl;
+  changed_by      : syuname;
+  changed_at      : timestampl;
+
+}

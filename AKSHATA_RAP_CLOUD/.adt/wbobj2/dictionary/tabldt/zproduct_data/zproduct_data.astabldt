@@ -1,0 +1,18 @@
+@EndUserText.label : 'Product Master'
+@AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
+@AbapCatalog.tableCategory : #TRANSPARENT
+@AbapCatalog.deliveryClass : #A
+@AbapCatalog.dataMaintenance : #RESTRICTED
+define table zproduct_data {
+
+  key client     : abap.clnt not null;
+  key product_id : abap.char(10) not null;
+  product_name   : abap.char(60);
+  category       : abap.char(30);
+  @Semantics.amount.currencyCode : 'zproduct_data.currency'
+  unit_price     : abap.curr(13,2);
+  currency       : abap.cuky;
+  stock_qty      : abap.int4;
+  reorder_level  : abap.int4;
+
+}

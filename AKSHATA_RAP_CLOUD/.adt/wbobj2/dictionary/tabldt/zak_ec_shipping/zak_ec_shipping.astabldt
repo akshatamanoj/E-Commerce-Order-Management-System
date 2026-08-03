@@ -1,0 +1,17 @@
+@EndUserText.label : 'Shipping'
+@AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
+@AbapCatalog.tableCategory : #TRANSPARENT
+@AbapCatalog.deliveryClass : #A
+@AbapCatalog.dataMaintenance : #RESTRICTED
+define table zak_ec_shipping {
+
+  key client      : abap.clnt not null;
+  key shipment_id : abap.char(10) not null;
+  order_id        : abap.char(10);
+  courier_name    : abap.char(50);
+  tracking_number : abap.char(30);
+  shipped_date    : abap.dats;
+  delivery_date   : abap.dats;
+  shipping_status : abap.char(20);
+
+}
