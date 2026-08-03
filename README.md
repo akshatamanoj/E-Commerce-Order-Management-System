@@ -194,7 +194,8 @@ The following screenshots demonstrate the key functionalities of the **E-Commerc
 Business validation and success/error messages used across RAP actions.
 
 <p align="center">
-<img src="screenshots/message-class.png" width="900"/>
+<img width="940" height="587" alt="image" src="https://github.com/user-attachments/assets/7fe27005-dfef-4c1a-bbac-4758e5965bdd" />
+
 </p>
 
 ---
@@ -204,7 +205,8 @@ Business validation and success/error messages used across RAP actions.
 Landing page of the application with filters and toolbar.
 
 <p align="center">
-<img src="screenshots/order-list-empty.png" width="900"/>
+<img width="940" height="556" alt="image" src="https://github.com/user-attachments/assets/fdc62667-e77c-44b5-8e49-e1db9e6c4546" />
+
 </p>
 
 ---
@@ -214,7 +216,8 @@ Landing page of the application with filters and toolbar.
 Displays all sales orders with customer, payment, shipping, and order status.
 
 <p align="center">
-<img src="screenshots/order-list.png" width="900"/>
+<img width="940" height="554" alt="image" src="https://github.com/user-attachments/assets/5c99ce29-39aa-4699-a534-0777ef8c38bb" />
+
 </p>
 
 ---
@@ -224,7 +227,8 @@ Displays all sales orders with customer, payment, shipping, and order status.
 Search Help (F4) for selecting an Order ID.
 
 <p align="center">
-<img src="screenshots/orderid-valuehelp.png" width="900"/>
+<img width="940" height="559" alt="image" src="https://github.com/user-attachments/assets/b422abfe-6cae-4dcb-9911-34a1646c5d8b" />
+
 </p>
 
 ---
@@ -234,7 +238,8 @@ Search Help (F4) for selecting an Order ID.
 Search Help (F4) for selecting a customer.
 
 <p align="center">
-<img src="screenshots/customer-valuehelp.png" width="900"/>
+<img width="940" height="553" alt="image" src="https://github.com/user-attachments/assets/b4af21f7-78d0-4dc9-b699-d1a761befdad" />
+
 </p>
 
 ---
@@ -244,7 +249,8 @@ Search Help (F4) for selecting a customer.
 Search Help for filtering orders by status.
 
 <p align="center">
-<img src="screenshots/status-valuehelp.png" width="900"/>
+<img width="940" height="553" alt="image" src="https://github.com/user-attachments/assets/002fb22e-be22-42ed-bb31-d57b9dc81be5" />
+
 </p>
 
 ---
@@ -254,7 +260,8 @@ Search Help for filtering orders by status.
 Detailed view of the selected order with associated order items.
 
 <p align="center">
-<img src="screenshots/order-object-page.png" width="900"/>
+<img width="940" height="554" alt="image" src="https://github.com/user-attachments/assets/b44471f0-1366-4736-8137-b9c29e2ff479" />
+
 </p>
 
 ---
@@ -264,7 +271,8 @@ Detailed view of the selected order with associated order items.
 Displays complete information for an individual order item.
 
 <p align="center">
-<img src="screenshots/order-item-object-page.png" width="900"/>
+<img width="940" height="548" alt="image" src="https://github.com/user-attachments/assets/90077ea7-14a7-45eb-8f4f-6f1bbe1700ce" />
+
 </p>
 
 ---
@@ -274,7 +282,8 @@ Displays complete information for an individual order item.
 Create a new sales order using SAP Fiori draft capabilities.
 
 <p align="center">
-<img src="screenshots/create-order.png" width="900"/>
+<img width="940" height="548" alt="image" src="https://github.com/user-attachments/assets/41362b07-d7af-46b3-bb74-b543901922db" />
+
 </p>
 
 ---
@@ -284,7 +293,8 @@ Create a new sales order using SAP Fiori draft capabilities.
 Execute custom RAP actions such as Accept Order, Confirm Payment, Pack Order, Ship Order, Deliver Order, and Cancel Order.
 
 <p align="center">
-<img src="screenshots/order-actions.png" width="900"/>
+<img width="940" height="529" alt="image" src="https://github.com/user-attachments/assets/203fae22-dece-4579-abcf-7ba23500a048" />
+
 </p>
 
 ---
@@ -340,6 +350,5 @@ SAP RAP | SAP ABAP | SAP Fiori | ABAP Cloud Developer
 
 ### ⭐ If you like this project, don't forget to Star the Repository ⭐
 
-Made with ❤️ using SAP RAP & ABAP Cloud
 
 </div>
