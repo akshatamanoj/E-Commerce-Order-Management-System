@@ -183,22 +183,111 @@ SAP Fiori Elements
 - Delivery Confirmation
 
 ---
+---
 
-# 📷 Screenshots
+# 📷 Application Screenshots
 
-> Add your SAP Fiori application screenshots here.
+The following screenshots demonstrate the key functionalities of the **E-Commerce Order Management System**.
 
-Example:
+### 📝 Message Class
 
-```
-screenshots/
-    Home.png
-    OrderList.png
-    ObjectPage.png
-```
+Business validation and success/error messages used across RAP actions.
+
+<p align="center">
+<img src="screenshots/message-class.png" width="900"/>
+</p>
 
 ---
 
+### 📋 Initial Fiori Launch Screen
+
+Landing page of the application with filters and toolbar.
+
+<p align="center">
+<img src="screenshots/order-list-empty.png" width="900"/>
+</p>
+
+---
+
+### 🛒 Sales Order List Report
+
+Displays all sales orders with customer, payment, shipping, and order status.
+
+<p align="center">
+<img src="screenshots/order-list.png" width="900"/>
+</p>
+
+---
+
+### 🔍 Order ID Value Help
+
+Search Help (F4) for selecting an Order ID.
+
+<p align="center">
+<img src="screenshots/orderid-valuehelp.png" width="900"/>
+</p>
+
+---
+
+### 👤 Customer Value Help
+
+Search Help (F4) for selecting a customer.
+
+<p align="center">
+<img src="screenshots/customer-valuehelp.png" width="900"/>
+</p>
+
+---
+
+### 📌 Order Status Value Help
+
+Search Help for filtering orders by status.
+
+<p align="center">
+<img src="screenshots/status-valuehelp.png" width="900"/>
+</p>
+
+---
+
+### 📄 Sales Order Object Page
+
+Detailed view of the selected order with associated order items.
+
+<p align="center">
+<img src="screenshots/order-object-page.png" width="900"/>
+</p>
+
+---
+
+### 📦 Order Item Details
+
+Displays complete information for an individual order item.
+
+<p align="center">
+<img src="screenshots/order-item-object-page.png" width="900"/>
+</p>
+
+---
+
+### ➕ Create Sales Order
+
+Create a new sales order using SAP Fiori draft capabilities.
+
+<p align="center">
+<img src="screenshots/create-order.png" width="900"/>
+</p>
+
+---
+
+### ⚡ RAP Business Actions
+
+Execute custom RAP actions such as Accept Order, Confirm Payment, Pack Order, Ship Order, Deliver Order, and Cancel Order.
+
+<p align="center">
+<img src="screenshots/order-actions.png" width="900"/>
+</p>
+
+---
 # 🎯 Future Enhancements
 
 - Email Notifications
@@ -243,7 +332,7 @@ This project demonstrates practical implementation of:
 
 ### **Akshata Kumbhar**
 
-SAP ABAP | SAP RAP | SAP Fiori | ABAP Cloud Developer
+SAP RAP | SAP ABAP | SAP Fiori | ABAP Cloud Developer
 
 ---
 
