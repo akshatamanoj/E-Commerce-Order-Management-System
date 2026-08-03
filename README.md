@@ -300,42 +300,44 @@ Execute custom RAP actions such as Accept Order, Confirm Payment, Pack Order, Sh
 ---
 # 🎯 Future Enhancements
 
-- Email Notifications
-- Dashboard Analytics
-- PDF Invoice Generation
-- Customer Portal
-- Role-Based Authorization
-- Smart Charts
-- KPI Tiles
+- 📧 Email Notifications
+- 📊 SAP Analytics
+- 📈 Dashboard Analytics
+- 📄 PDF Invoice Generation
+- 👤 Customer Portal
+- 🔐 Role-Based Authorization
+- 📉 Smart Charts
 
 ---
 
 # 📈 Project Highlights
 
-- SAP RAP Managed Scenario
-- Draft Enabled Application
-- OData V4 Service
-- Fiori Elements UI
-- Value Help
-- Custom RAP Actions
+- SAP RAP Application Development
+- ABAP Cloud Development
+- SAP Fiori Elements UI
+- OData V4 Services
+- CDS View Modeling
+- Behaviour Definitions & Implementations
 - Metadata Extensions
+- Value Help (F4 Search)
 - CRUD Operations
-
+- Business Validations & Actions
 ---
 
 # 📚 Learning Outcomes
 
 This project demonstrates practical implementation of:
 
-- SAP RAP
-- ABAP Cloud
-- CDS View Modeling
-- Managed Business Objects
-- Behavior Definitions
-- OData Services
+- SAP RESTful ABAP Programming Model (RAP)
+- SAP ABAP Cloud Development
+- CDS Interface & Projection Views
+- Behaviour Definitions & Implementations
+- Metadata Extensions
+- OData V4 Service Development
 - SAP Fiori Elements
+- Business Object Modeling
+- CRUD Operations
 - Enterprise Application Development
-
 ---
 
 # 👩‍💻 Author
