@@ -340,11 +340,4 @@ This project demonstrates practical implementation of:
 
 SAP RAP | SAP ABAP | SAP Fiori | ABAP Cloud Developer
 
----
 
-<div align="center">
-
-### ⭐ If you like this project, don't forget to Star the Repository ⭐
-
-
-</div>
